@@ -1,0 +1,137 @@
+<div class="main-container">
+  <mat-card class="form-card">
+    <mat-card-header class="card-header">
+      <mat-card-title>
+        {{ diagnosisId > 0 ? 'Editar' : 'Registrar' }} Diagnóstico
+      </mat-card-title>
+      <mat-card-subtitle>Información del diagnóstico y recomendaciones</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (crudForm) {
+        <form [formGroup]="crudForm" class="form-content">
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Id</mat-label>
+            <input matInput formControlName="id" readonly style="color: #999999;">
+            <mat-icon matSuffix>fingerprint</mat-icon>
+          </mat-form-field>
+
+   
+          <mat-form-field *ngIf="tipoEspecialistaNombre" appearance="outline" class="full-width">
+            <mat-label>Tipo de Diagnóstico</mat-label>
+            <input matInput [value]="tipoDiagnostico" readonly />
+            <mat-icon matSuffix>medical_services</mat-icon>
+          </mat-form-field>
+
+          
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Fecha del Diagnóstico</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date" placeholder="DD/MM/YYYY">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            @if (crudForm.get('date')?.hasError('required')) {
+              <mat-error>Fecha requerida</mat-error>
+            }
+            @if (crudForm.get('date')?.hasError('futureDate')) {
+              <mat-error>No se puede seleccionar una fecha futura</mat-error>
+            }
+          </mat-form-field>
+
+      
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Cita / Appointment</mat-label>
+            <mat-select formControlName="appointmentId">
+              @for (apt of listaAppointments; track apt) {
+                <mat-option [value]="apt.id">
+                  Cita #{{ apt.id }} - {{ apt.date | date:'short' }}
+                </mat-option>
+              }
+            </mat-select>
+            @if (crudForm.get('appointmentId')?.hasError('required')) {
+              <mat-error>Cita requerida</mat-error>
+            }
+          </mat-form-field>
+
+         
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Historia Clínica</mat-label>
+            <mat-select formControlName="historyId">
+              @for (hist of listaHistories; track hist) {
+                <mat-option [value]="hist.id">
+                  Historia #{{ hist.id }}
+                </mat-option>
+              }
+            </mat-select>
+            @if (crudForm.get('historyId')?.hasError('required')) {
+              <mat-error>Historia requerida</mat-error>
+            }
+          </mat-form-field>
+
+       
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Paciente</mat-label>
+            <mat-select formControlName="patientId" (selectionChange)="onPatientChange($event.value)">
+              @for (paciente of listaPatientes; track paciente) {
+                <mat-option [value]="paciente.id">
+                  {{ paciente.firstName }} {{ paciente.lastName }}
+                </mat-option>
+              }
+            </mat-select>
+            @if (crudForm.get('patientId')?.hasError('required')) {
+              <mat-error>Paciente requerido</mat-error>
+            }
+          </mat-form-field>
+
+         
+          @if (pacienteSeleccionado) {
+            <mat-card class="patient-info-card">
+              <mat-card-title>Información del Paciente</mat-card-title>
+              <mat-card-content>
+                <p><strong>Nombre:</strong> {{ pacienteSeleccionado.firstName }} {{ pacienteSeleccionado.lastName }}</p>
+                <p><strong>Género:</strong> {{ pacienteSeleccionado.gender }}</p>
+                <p><strong>Fecha de Nacimiento:</strong> {{ pacienteSeleccionado.birthDate | date:'short' }}</p>
+                <p><strong>Peso:</strong> {{ pacienteSeleccionado.weight }} kg</p>
+                <p><strong>Altura:</strong> {{ pacienteSeleccionado.height }} cm</p>
+                <p><strong>Teléfono:</strong> {{ pacienteSeleccionado.phone }}</p>
+              </mat-card-content>
+            </mat-card>
+          }
+        
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Descripción del Diagnóstico</mat-label>
+            <textarea matInput formControlName="description" rows="3" placeholder="Describe el diagnóstico...\"></textarea>
+            @if (crudForm.get('description')?.hasError('required')) {
+              <mat-error>Descripción requerida</mat-error>
+            }
+            @if (crudForm.get('description')?.hasError('maxlength')) {
+              <mat-error>Máximo 500 caracteres</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Recomendaciones</mat-label>
+            <textarea matInput formControlName="recommendations" rows="3" placeholder="Recomendaciones para el paciente...\"></textarea>
+            @if (crudForm.get('recommendations')?.hasError('required')) {
+              <mat-error>Recomendaciones requeridas</mat-error>
+            }
+            @if (crudForm.get('recommendations')?.hasError('maxlength')) {
+              <mat-error>Máximo 500 caracteres</mat-error>
+            }
+          </mat-form-field>
+        </form>
+      }
+    </mat-card-content>
+
+    <mat-card-actions align="end" class="card-actions">
+      <button mat-button color="warn" (click)="Cancelar()">
+        CANCELAR
+      </button>
+      <button mat-flat-button color="primary" (click)="Grabar()" [disabled]="crudForm.invalid">
+        GRABAR
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+message.txt
+5 KB

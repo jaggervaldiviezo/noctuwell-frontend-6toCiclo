@@ -1,0 +1,33 @@
+<div class="chat-wrapper">
+  <div class="chat-header">
+    <h3>Chat de Cita #{{ appointmentId }}</h3>
+  </div>
+
+  <div class="messages-list" #chatContainer>
+    
+    <div *ngFor="let msg of messages" 
+         class="message-row"
+         [ngClass]="{'row-me': msg.senderUsername === currentUser, 'row-other': msg.senderUsername !== currentUser}">
+      
+      <div class="message-bubble">
+        <div class="msg-sender" *ngIf="msg.senderUsername !== currentUser">{{ msg.senderUsername }}</div>
+        <div class="msg-content">{{ msg.content }}</div>
+        <div class="msg-date">{{ msg.sentAt | date:'shortTime' }}</div>
+      </div>
+
+    </div>
+
+    <div *ngIf="messages.length === 0" class="empty-chat">
+      <p>No hay mensajes. ¡Inicia la conversación!</p>
+    </div>
+  </div>
+
+  <div class="input-area">
+    <input type="text" 
+           [(ngModel)]="mensajeTexto" 
+           placeholder="Escribe tu mensaje..." 
+           (keyup.enter)="sendMessage()">
+    
+    <button (click)="sendMessage()" [disabled]="!mensajeTexto">Enviar</button>
+  </div>
+</div>

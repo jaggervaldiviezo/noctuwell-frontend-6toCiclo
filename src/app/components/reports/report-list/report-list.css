@@ -1,0 +1,70 @@
+.main-container {
+    padding: 30px;
+    background-color: #f5f7fa;
+    min-height: 100vh;
+}
+
+.header-section {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.header-section h1 {
+    color: rgb(44, 14, 216);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.header-section p {
+    color: #546e7a;
+}
+
+.reports-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.report-card {
+    border-radius: 12px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background: white;
+}
+
+.report-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(44, 14, 216, 0.1);
+}
+
+.report-avatar {
+    background-color: rgba(44, 14, 216, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.report-avatar mat-icon {
+    color: rgb(44, 14, 216);
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #37474f;
+}
+
+mat-card-content p {
+    color: #78909c;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    min-height: 40px;
+}
+
+button[mat-flat-button][color="primary"] {
+    background-color: rgb(44, 14, 216) !important;
+    color: white !important;
+}

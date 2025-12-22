@@ -1,0 +1,124 @@
+<div class="main-container">
+  <mat-card class="form-card">
+    <mat-card-header class="card-header">
+      <mat-card-title>
+        {{ specialistId > 0 ? "Editar" : "Registrar" }} Especialista
+      </mat-card-title>
+      <mat-card-subtitle
+        >Información profesional y asignación de cuenta</mat-card-subtitle
+      >
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (crudForm) {
+      <form [formGroup]="crudForm" class="form-content">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Id</mat-label>
+          <input
+            matInput
+            formControlName="id"
+            readonly
+            style="color: #999999"
+          />
+          <mat-icon matSuffix>fingerprint</mat-icon>
+        </mat-form-field>
+        <div class="row-fields" style="display: flex; gap: 15px">
+          <mat-form-field appearance="outline" style="width: 50%">
+            <mat-label>Nombre</mat-label>
+            <input
+              matInput
+              formControlName="firstName"
+              placeholder="Ej. Juan"
+            />
+            @if (crudForm.get('firstName')?.hasError('required')) {
+            <mat-error>Requerido</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline" style="width: 50%">
+            <mat-label>Apellido</mat-label>
+            <input
+              matInput
+              formControlName="lastName"
+              placeholder="Ej. Pérez"
+            />
+            @if (crudForm.get('lastName')?.hasError('required')) {
+            <mat-error>Requerido</mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="row-fields" style="display: flex; gap: 15px">
+          <mat-form-field appearance="outline" style="width: 50%">
+            <mat-label>Teléfono</mat-label>
+            <input
+              matInput
+              formControlName="phone"
+              placeholder="999888777"
+              type="tel"
+              maxlength="9"
+              (keypress)="onlyNumbers($event)"
+            />
+            <mat-icon matSuffix>phone</mat-icon>
+            @if (crudForm.get('phone')?.invalid) {
+            <mat-error>Solo números (min 9)</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline" style="width: 50%">
+            <mat-label>Experiencia (Años)</mat-label>
+            <input matInput type="number" formControlName="experience" />
+            <mat-icon matSuffix>timeline</mat-icon>
+          </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Certificación (CMP/CBP)</mat-label>
+          <input matInput formControlName="certification" />
+          <mat-icon matSuffix>verified</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Especialidad</mat-label>
+          <mat-select formControlName="typeSpecialistId">
+            <mat-option *ngFor="let type of listaTipos" [value]="type.id">
+              {{ type.name }}
+            </mat-option>
+          </mat-select>
+          @if (crudForm.get('typeSpecialistId')?.hasError('required')) {
+          <mat-error> Seleccione una especialidad </mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Usuario Asociado</mat-label>
+          <mat-select formControlName="userId">
+            <mat-option
+              *ngFor="let user of listaUsuariosDisponibles"
+              [value]="user.id"
+            >
+              {{ user.username }} (ID: {{ user.id }})
+            </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>person</mat-icon>
+          @if (crudForm.get('userId')?.hasError('required')) {
+          <mat-error> Asigne un usuario </mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Descripción / Perfil</mat-label>
+          <textarea matInput formControlName="description" rows="3"></textarea>
+        </mat-form-field>
+      </form>
+      }
+    </mat-card-content>
+
+    <mat-card-actions align="end" class="card-actions">
+      <button mat-button color="warn" routerLink="/specialist-list">
+        CANCELAR
+      </button>
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="Grabar()"
+        [disabled]="crudForm.invalid"
+      >
+        GRABAR
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

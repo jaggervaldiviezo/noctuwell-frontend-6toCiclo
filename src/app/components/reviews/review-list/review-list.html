@@ -1,0 +1,110 @@
+<div class="main-container">
+  <div class="table-card">
+    <div class="card-header">
+      <div class="header-text">
+        <h2 class="reviews-title">Reseñas</h2>
+        <span class="subtitle">Gestión de Reseñas</span>
+      </div>
+
+      <button mat-flat-button color="primary" routerLink="/review-add">
+        <mat-icon>add</mat-icon> NUEVO
+      </button>
+    </div>
+
+    <div style="padding: 0 24px 8px 24px">
+      <div class="filters-container">
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Tipo especialista</mat-label>
+          <mat-select
+            [(value)]="selectedTypeId"
+            (selectionChange)="OnTypeChange()"
+          >
+            <mat-option [value]="null">Todos</mat-option>
+            <mat-option *ngFor="let ts of typeSpecialists" [value]="ts.id">
+              {{ ts.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Especialista</mat-label>
+          <mat-select
+            [(value)]="selectedSpecialistId"
+            (selectionChange)="OnSpecialistChange()"
+            [disabled]="!selectedTypeId"
+          >
+            <mat-option [value]="null">Todos</mat-option>
+
+            <mat-option
+              *ngFor="let element of specialistsByType"
+              [value]="element.id"
+            >
+              {{ element.firstName }} {{ element.lastName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div *ngIf="dsReviews.data.length === 0" class="sin-datos">
+      No hay reseñas que mostrar.
+    </div>
+
+    <div class="reviews-container" *ngIf="dsReviews.data.length > 0">
+      <div *ngFor="let element of dsReviews.data" class="review-card">
+        <div class="review-header">
+          <div class="avatar-circle">
+            {{ element.patient?.firstName?.charAt(0) }}
+          </div>
+
+          <div class="review-header-text">
+            <div class="review-name">
+              {{ element.patient?.firstName }} {{ element.patient?.lastName }}
+            </div>
+            <div class="review-subtitle">
+              Especialista: {{ element.specialist?.firstName }}
+              {{ element.specialist?.lastName }}
+            </div>
+          </div>
+        </div>
+
+        <div class="review-rating-row">
+          <div class="stars">
+            <ng-container *ngFor="let s of [1, 2, 3, 4, 5]">
+              <mat-icon class="star-icon" *ngIf="s <= element.calificacion">
+                star
+              </mat-icon>
+              <mat-icon
+                class="star-icon muted"
+                *ngIf="s > element.calificacion"
+              >
+                star_border
+              </mat-icon>
+            </ng-container>
+          </div>
+
+          <div class="review-date">
+            {{ element.fecha | date : "longDate" }}
+          </div>
+        </div>
+
+        <div class="review-body">
+          <div class="review-title">Opinión del paciente</div>
+          <p>{{ element.comment }}</p>
+        </div>
+
+        <div class="review-actions">
+          <button
+            *ngIf="mode === 'admin'"
+            mat-icon-button
+            color="warn"
+            (click)="Borrar(element.id)"
+            matTooltip="Eliminar"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

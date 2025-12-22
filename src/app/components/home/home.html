@@ -1,0 +1,142 @@
+<div class="dashboard-wrapper">
+  
+  <header class="dashboard-header">
+    <div class="header-text">
+      <h1>Panel de Control</h1>
+      <p class="subtitle">
+        <span *ngIf="isPatient">Bienvenido. Gestiona tu salud desde aquí.</span>
+        <span *ngIf="isSpecialist">Bienvenido, Doctor(a). Aquí está su agenda hoy.</span>
+        <span *ngIf="isAdmin">Administración del sistema Noctuwell.</span>
+      </p>
+    </div>
+    
+    <div class="header-actions">
+      <button *ngIf="isPatient" mat-raised-button color="primary" routerLink="/appointment-add">
+        <mat-icon>add</mat-icon> Nueva Cita
+      </button>
+    </div>
+  </header>
+
+  <div class="stats-grid" *ngIf="!isPatient">
+    <div class="stat-card">
+      <div class="stat-icon blue-bg"><mat-icon>event</mat-icon></div>
+      <div class="stat-data">
+        <span class="stat-value">8</span>
+        <span class="stat-label">Citas Hoy</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon green-bg"><mat-icon>forum</mat-icon></div>
+      <div class="stat-data">
+        <span class="stat-value">3</span>
+        <span class="stat-label">Msj. Nuevos</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon orange-bg"><mat-icon>people</mat-icon></div>
+      <div class="stat-data">
+        <span class="stat-value">124</span>
+        <span class="stat-label">Pacientes</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon purple-bg"><mat-icon>star</mat-icon></div>
+      <div class="stat-data">
+        <span class="stat-value">4.9</span>
+        <span class="stat-label">Calificación</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    
+    <h3 class="section-heading">Gestión Clínica</h3>
+    <div class="modules-grid">
+      
+      <mat-card class="pro-card active-card" routerLink="/appointment-list" matRipple>
+        <div class="card-icon-box primary-box">
+          <mat-icon>calendar_today</mat-icon>
+        </div>
+        <div class="card-content">
+          <h4>{{ isPatient ? 'Mis Citas' : 'Agenda Médica' }}</h4>
+          <p>{{ isPatient ? 'Ver mis próximas citas' : 'Gestionar agenda del día' }}</p>
+        </div>
+        <mat-icon class="arrow-icon">chevron_right</mat-icon>
+      </mat-card>
+
+
+      <mat-card class="pro-card" [routerLink]="isPatient ? '/patient/history-list' : '/specialist/history-list'" matRipple>
+        <div class="card-icon-box gray-box">
+          <mat-icon>folder_shared</mat-icon>
+        </div>
+        <div class="card-content">
+          <h4>Historias Clínicas</h4>
+          <p>{{ isPatient ? 'Mi historial médico' : 'Registros de pacientes' }}</p>
+        </div>
+      </mat-card>
+
+      <mat-card class="pro-card" [routerLink]="isPatient ? '/patient/diagnosis-list' : '/specialist/diagnosis-list'" matRipple>
+        <div class="card-icon-box gray-box">
+          <mat-icon>medical_information</mat-icon>
+        </div>
+        <div class="card-content">
+          <h4>Diagnósticos</h4>
+          <p>Resultados y tratamiento</p>
+        </div>
+      </mat-card>
+
+      <mat-card class="pro-card" routerLink="/review-list" matRipple>
+        <div class="card-icon-box yellow-box"> <mat-icon>rate_review</mat-icon>
+        </div>
+        <div class="card-content">
+          <h4>Reseñas</h4>
+          <p *ngIf="isPatient">Califica tu atención</p>
+          <p *ngIf="isSpecialist">Ver mis calificaciones</p>
+          <p *ngIf="isAdmin">Gestionar reseñas</p>
+        </div>
+      </mat-card>
+      <mat-card class="pro-card" routerLink="/plan-list" matRipple>
+        <div class="card-icon-box teal-box"> <mat-icon>card_membership</mat-icon>
+        </div>
+        <div class="card-content">
+          <h4>Planes de Suscripción</h4>
+          
+          <p *ngIf="isPatient">Mejora tu nivel y obtén beneficios</p>
+          <p *ngIf="isSpecialist">Conoce los planes vigentes</p>
+          <p *ngIf="isAdmin">Gestionar precios y beneficios</p>
+        </div>
+      </mat-card>
+    </div>
+
+    <h3 class="section-heading" *ngIf="!isPatient">Administración y Configuración</h3>
+    
+    <div class="modules-grid small-grid" *ngIf="!isPatient">
+      
+      <mat-card class="mini-card" routerLink="/specialist-list" matRipple *ngIf="isAdmin">
+        <mat-icon class="mini-icon">groups</mat-icon>
+        <span>Especialistas</span>
+      </mat-card>
+
+      <mat-card class="mini-card" routerLink="/patient-list" matRipple *ngIf="isAdmin || isSpecialist">
+        <mat-icon class="mini-icon">people_outline</mat-icon>
+        <span>Pacientes</span>
+      </mat-card>
+
+      <mat-card class="mini-card" routerLink="/schedule-list" matRipple *ngIf="isAdmin || isSpecialist">
+        <mat-icon class="mini-icon">schedule</mat-icon>
+        <span>Horarios</span>
+      </mat-card>
+
+      <mat-card class="mini-card" routerLink="/typeSpecialist-list" matRipple *ngIf="isAdmin">
+        <mat-icon class="mini-icon">category</mat-icon>
+        <span>Tipos Esp.</span>
+      </mat-card>
+
+      <mat-card class="mini-card" routerLink="/report-list" matRipple *ngIf="isAdmin">
+        <mat-icon class="mini-icon">bar_chart</mat-icon>
+        <span>Reportes</span>
+      </mat-card>
+      
+    </div>
+  </div>
+</div>

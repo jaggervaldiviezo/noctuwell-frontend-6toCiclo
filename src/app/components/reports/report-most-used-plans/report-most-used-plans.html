@@ -1,0 +1,42 @@
+<div class="main-container">
+    
+    <div class="header-actions">
+        <button mat-stroked-button color="primary" routerLink="/report-list">
+            <mat-icon>arrow_back</mat-icon> VOLVER AL MENÚ
+        </button>
+    </div>
+
+    <mat-card class="chart-card">
+        <mat-card-header class="card-header">
+            <mat-card-title>Popularidad de Planes</mat-card-title>
+            <mat-card-subtitle>Comparativa de suscripciones activas (HU71)</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content class="chart-content">
+            
+            <div *ngIf="chartData.length > 0; else noData">
+                <ngx-charts-bar-vertical
+                    [view]="view"
+                    [scheme]="colorScheme"
+                    [results]="chartData"
+                    [gradient]="gradient"
+                    [xAxis]="showXAxis"
+                    [yAxis]="showYAxis"
+                    [legend]="showLegend"
+                    [showXAxisLabel]="showXAxisLabel"
+                    [showYAxisLabel]="showYAxisLabel"
+                    [xAxisLabel]="xAxisLabel"
+                    [yAxisLabel]="yAxisLabel">
+                </ngx-charts-bar-vertical>
+            </div>
+
+            <ng-template #noData>
+                <div class="no-data-msg">
+                    <mat-icon>bar_chart_off</mat-icon>
+                    <p>No hay datos registrados aún.</p>
+                </div>
+            </ng-template>
+
+        </mat-card-content>
+    </mat-card>
+</div>

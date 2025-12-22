@@ -1,0 +1,106 @@
+<div class="main-container">
+  <mat-card class="form-card">
+    <mat-card-header class="card-header">
+      <mat-card-title>
+        {{ historyId > 0 ? "Editar" : "Registrar" }} Historia Clínica
+      </mat-card-title>
+      <mat-card-subtitle
+        >Antecedentes, alergias y medicación del paciente</mat-card-subtitle
+      >
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (crudForm) {
+      <form [formGroup]="crudForm" class="form-content">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Id</mat-label>
+          <input
+            matInput
+            formControlName="id"
+            readonly
+            style="color: #999999"
+          />
+          <mat-icon matSuffix>fingerprint</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Antecedentes</mat-label>
+          <textarea
+            matInput
+            formControlName="background"
+            rows="3"
+            placeholder="Ej. Sin antecedentes graves, cirugías previas, etc."
+          >
+          </textarea>
+          @if (crudForm.get('background')?.hasError('required')) {
+          <mat-error>Este campo es requerido</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Alergias</mat-label>
+          <textarea
+            matInput
+            formControlName="allergies"
+            rows="2"
+            placeholder="Ej. Alergia a penicilina, polvo, etc."
+          >
+          </textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Medicación actual</mat-label>
+          <textarea
+            matInput
+            formControlName="medications"
+            rows="2"
+            placeholder="Ej. Losartán 50mg cada 12 horas"
+          >
+          </textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Paciente</mat-label>
+          <mat-select formControlName="patientId">
+            @for (patient of listaPacientes; track patient) {
+            <mat-option [value]="patient.id">
+              {{ patient.firstName }} {{ patient.lastName }} (ID:
+              {{ patient.id }})
+            </mat-option>
+            }
+          </mat-select>
+          <mat-icon matSuffix>person</mat-icon>
+          @if (crudForm.get('patientId')?.hasError('required')) {
+          <mat-error> Seleccione un paciente </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field
+          *ngIf="tipoEspecialistaNombre"
+          appearance="outline"
+          class="full-width"
+        >
+          <mat-label>Tipo de Especialista</mat-label>
+          <input matInput [value]="tipoEspecialistaNombre" readonly />
+          <mat-icon matSuffix>medical_services</mat-icon>
+        </mat-form-field>
+      </form>
+      }
+    </mat-card-content>
+
+    <mat-card-actions align="end" class="card-actions">
+      <button mat-button color="warn" routerLink="/specialist/history-list">
+        CANCELAR
+      </button>
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="Grabar()"
+        [disabled]="crudForm.invalid"
+      >
+        GRABAR
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

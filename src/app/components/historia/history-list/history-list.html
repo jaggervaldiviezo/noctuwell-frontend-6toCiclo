@@ -1,0 +1,99 @@
+<div class="main-container">
+  <div class="table-card">
+    <div class="card-header">
+      <div class="header-text">
+        <h2>Historias Clínicas</h2>
+        <span class="subtitle">
+          Gestión de historias clínicas de pacientes
+        </span>
+      </div>
+
+      <button
+        *ngIf="mode === 'specialist'"
+        mat-flat-button
+        color="primary"
+        routerLink="/specialist/history-add"
+      >
+        <mat-icon>add</mat-icon> NUEVO
+      </button>
+    </div>
+
+    <div class="table-container">
+      <table mat-table [dataSource]="dsHistories" class="mat-elevation-z0">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let element" class="id-cell">
+            {{ element.id }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="patient">
+          <th mat-header-cell *matHeaderCellDef>Paciente</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.patient?.firstName }} {{ element.patient?.lastName }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="typeSpecialist">
+          <th mat-header-cell *matHeaderCellDef>Tipo de Especialista</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.typeSpecialist?.name }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="background">
+          <th mat-header-cell *matHeaderCellDef>Antecedentes</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.background }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="allergies">
+          <th mat-header-cell *matHeaderCellDef>Alergias</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.allergies }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="medications">
+          <th mat-header-cell *matHeaderCellDef>Medicaciones</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.medications }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="opciones">
+          <th mat-header-cell *matHeaderCellDef class="center-header">
+            Acciones
+          </th>
+          <td mat-cell *matCellDef="let element" class="actions-cell">
+
+            <button
+              *ngIf="mode === 'specialist'"
+              mat-icon-button
+              color="primary"
+              [routerLink]="['/specialist/history-edit', element.id]"
+              matTooltip="Editar"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button
+              *ngIf="mode === 'admin'"
+              mat-icon-button
+              color="warn"
+              (click)="Borrar(element.id)"
+              matTooltip="Eliminar"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </div>
+</div>

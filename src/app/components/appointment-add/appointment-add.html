@@ -1,0 +1,74 @@
+<div class="main-container">
+  <mat-card class="appointment-card">
+    <mat-card-header class="card-header">
+      <mat-card-title>Reservar Cita</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-stepper orientation="vertical" [linear]="true" #stepper>
+        
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Selecciona Especialista y Fecha</ng-template>
+            
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Especialista</mat-label>
+                <mat-select formControlName="specialistId" (selectionChange)="buscarHorarios()">
+                  <mat-option *ngFor="let s of listaEspecialistas" [value]="s.id">
+                    {{s.firstName}} {{s.lastName}} ({{s.certification}})
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Fecha</mat-label>
+                <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="date" (dateChange)="buscarHorarios()">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div *ngIf="slotsDisponibles.length > 0" class="slots-container">
+                <h4>Horarios Disponibles:</h4>
+                <div class="slots-grid">
+                    <button mat-flat-button 
+                            *ngFor="let slot of slotsDisponibles"
+                            [color]="selectedSlot === slot ? 'primary' : 'basic'"
+                            [disabled]="!slot.available"
+                            (click)="seleccionarHora(slot)"
+                            [class.selected]="selectedSlot === slot">
+                        {{ slot.time | slice:0:5 }} </button>
+                </div>
+            </div>
+            
+            <div *ngIf="slotsDisponibles.length === 0 && firstFormGroup.valid" class="no-slots">
+                <p>No hay horarios disponibles para esta fecha o doctor.</p>
+            </div>
+
+            <div class="stepper-actions">
+              <button mat-button matStepperNext [disabled]="!selectedSlot">Siguiente</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Motivo de la Consulta</ng-template>
+            
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Describe brevemente tu motivo</mat-label>
+              <textarea matInput formControlName="reason" rows="3"></textarea>
+            </mat-form-field>
+
+            <div class="stepper-actions">
+              <button mat-button matStepperPrevious>Atrás</button>
+              <button mat-flat-button color="primary" (click)="reservar()">Confirmar Reserva</button>
+            </div>
+          </form>
+        </mat-step>
+
+      </mat-stepper>
+    </mat-card-content>
+  </mat-card>
+</div>

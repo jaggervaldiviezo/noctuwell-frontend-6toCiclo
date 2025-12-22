@@ -1,0 +1,146 @@
+.main-container {
+    padding: 20px;
+    background-color: #f5f7fa;
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+}
+
+.table-card {
+    width: 100%;
+    max-width: 1000px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-header {
+    padding: 24px 30px;
+    background: white;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-text h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.subtitle {
+    color: #7f8c8d;
+    font-size: 14px;
+    margin-top: 4px;
+    display: block;
+}
+
+.table-container {
+    padding: 10px 0;
+}
+
+table {
+    width: 100%;
+}
+
+th.mat-header-cell {
+    color: #7f8c8d;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    padding: 16px 24px;
+}
+
+td.mat-cell {
+    padding: 16px 24px;
+    color: #2c3e50;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+
+.id-cell {
+    color: #95a5a6;
+    font-family: monospace;
+}
+
+.bold-text {
+    font-weight: 500;
+}
+
+.badge-specialist {
+    background-color: #e3f2fd;
+    color: #1565c0;
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.center-header {
+    text-align: right;
+    padding-right: 40px !important;
+}
+
+.actions-cell {
+    text-align: right;
+    white-space: nowrap;
+}
+
+
+
+button[mat-flat-button][color="primary"] {
+    background-color: rgb(44, 14, 216) !important;
+    color: white !important;
+}
+
+
+th.mat-header-cell {
+    background-color: white !important;
+    color: #546e7a !important;
+}
+
+tr.mat-row, td.mat-cell {
+    background-color: white !important;
+}
+
+
+button[mat-icon-button][color="primary"] mat-icon {
+    color: rgb(44, 14, 216) !important;
+}
+table.mat-table, 
+table.mat-mdc-table {
+    background-color: white !important;
+}
+
+
+tr.mat-header-row, 
+tr.mat-mdc-header-row {
+    background-color: white !important;
+}
+
+
+tr.mat-row, 
+tr.mat-mdc-row {
+    background-color: white !important;
+}
+
+
+th.mat-header-cell, 
+th.mat-mdc-header-cell, 
+td.mat-cell, 
+td.mat-mdc-cell {
+    background-color: white !important;
+    color: #546e7a !important;
+}
+
+
+tr.mat-row:hover, 
+tr.mat-mdc-row:hover {
+    background-color: #f5f7fa !important;
+}

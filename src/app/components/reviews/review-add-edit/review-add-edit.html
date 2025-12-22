@@ -1,0 +1,84 @@
+<div class="main-container">
+  <div class="table-card">
+    <div class="card-header">
+      <div class="header-text">
+        <h2>Reseña</h2>
+        <span class="subtitle">
+          {{ reviewId > 0 ? "Editar reseña" : "Registrar nueva reseña" }}
+        </span>
+      </div>
+    </div>
+
+    <form [formGroup]="crudForm" (ngSubmit)="Grabar()">
+      <div class="reviews-container">
+        <mat-form-field appearance="outline">
+          <mat-label>Especialista</mat-label>
+          <mat-select formControlName="specialistId">
+            <mat-option
+              *ngFor="let element of listaEspecialistas"
+              [value]="element.id"
+            >
+              {{ element.firstName }} {{ element.lastName }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="crudForm.get('specialistId')?.hasError('required')">
+            Selecciona un especialista
+          </mat-error>
+        </mat-form-field>
+
+        <div class="rating-stars">
+          <div class="rating-label">Calificación</div>
+          <div class="stars-row">
+            <button
+              type="button"
+              mat-icon-button
+              *ngFor="let star of [1, 2, 3, 4, 5]"
+              (click)="setRating(star)"
+            >
+              <mat-icon
+                [ngClass]="{
+                  'active-star': star <= crudForm.get('calificacion')?.value
+                }"
+              >
+                {{
+                  star <= crudForm.get("calificacion")?.value
+                    ? "star"
+                    : "star_border"
+                }}
+              </mat-icon>
+            </button>
+          </div>
+          <mat-error *ngIf="crudForm.get('calificacion')?.hasError('required')">
+            La calificación es obligatoria
+          </mat-error>
+        </div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Comentario</mat-label>
+          <textarea matInput rows="4" formControlName="comment"></textarea>
+          <mat-error *ngIf="crudForm.get('comment')?.hasError('required')">
+            El comentario es obligatorio
+          </mat-error>
+          <mat-error *ngIf="crudForm.get('comment')?.hasError('minlength')">
+            El comentario debe tener al menos 5 caracteres
+          </mat-error>
+        </mat-form-field>
+
+        <div class="review-actions">
+          <button mat-stroked-button type="button" routerLink="/review-list">
+            Cancelar
+          </button>
+
+          <button
+            mat-flat-button
+            color="primary"
+            type="submit"
+            [disabled]="crudForm.invalid"
+          >
+            Guardar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="main-container">
+  <div class="table-card">
+    <div class="card-header">
+      <div class="header-text">
+        <h2>Tipos de Especialista</h2>
+        <span class="subtitle">Gestión del catálogo de especialidades</span>
+      </div>
+
+      <button mat-flat-button color="primary" routerLink="/typeSpecialist-add">
+        <mat-icon>add</mat-icon> NUEVO
+      </button>
+    </div>
+
+    <div class="table-container">
+      <table
+        mat-table
+        [dataSource]="dsTypesSpecialists"
+        class="mat-elevation-z0"
+      >
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let element" class="id-cell">
+            {{ element.id }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let element" class="bold-text">
+            {{ element.name }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Descripción</th>
+          <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="opciones">
+          <th mat-header-cell *matHeaderCellDef class="center-header">
+            Acciones
+          </th>
+          <td mat-cell *matCellDef="let element" class="actions-cell">
+            <button
+              mat-icon-button
+              color="primary"
+              [routerLink]="['/typeSpecialist-edit', element.id]"
+              matTooltip="Editar"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="Borrar(element.id)"
+              matTooltip="Eliminar"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </div>
+</div>

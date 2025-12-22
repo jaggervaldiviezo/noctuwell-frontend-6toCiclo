@@ -1,0 +1,44 @@
+.main-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+.appointment-card {
+    width: 100%;
+    max-width: 600px;
+}
+.card-header {
+    background-color: rgb(44, 14, 216);
+    color: white;
+    padding: 16px;
+}
+.card-header mat-card-title {
+    color: white !important;
+}
+.full-width {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.slots-container {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 8px;
+}
+.slots-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.selected {
+    border: 2px solid rgb(44, 14, 216);
+    transform: scale(1.05);
+}
+.stepper-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}

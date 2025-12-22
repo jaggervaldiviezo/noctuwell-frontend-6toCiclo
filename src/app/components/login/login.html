@@ -1,0 +1,49 @@
+<div class="login-container">
+
+  <mat-card class="login-card">
+
+    <div class="login-header">
+      <div class="icon-circle">
+        <mat-icon>local_hospital</mat-icon>
+      </div>
+      <h2>Noctuwell</h2>
+      <p>Bienvenido, ingresa tus credenciales</p>
+    </div>
+
+    <mat-card-content>
+      <form [formGroup]="loginForm">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Usuario</mat-label>
+          <input matInput formControlName="username" placeholder="Ingrese su usuario">
+          <mat-icon matSuffix>person</mat-icon>
+          @if (loginForm.get('username')?.hasError('required')) {
+            <mat-error>
+              El usuario es requerido
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput [type]="'password'" formControlName="password" placeholder="••••••••">
+          <mat-icon matSuffix>lock</mat-icon>
+          @if (loginForm.get('password')?.hasError('required')) {
+            <mat-error>
+              La contraseña es requerida
+            </mat-error>
+          }
+        </mat-form-field>
+
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-flat-button color="primary" class="login-btn" (click)="Ingresar()" [disabled]="loginForm.invalid">
+        INGRESAR
+      </button>
+    </mat-card-actions>
+
+  </mat-card>
+
+</div>

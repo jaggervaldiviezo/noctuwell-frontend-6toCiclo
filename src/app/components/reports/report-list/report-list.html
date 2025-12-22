@@ -1,0 +1,31 @@
+<div class="main-container">
+  
+  <div class="header-section">
+    <h1>Centro de Reportes</h1>
+    <p>Métricas clave de gestión y rendimiento.</p>
+  </div>
+
+  <div class="reports-grid">
+
+    <mat-card class="report-card" *ngFor="let report of reports">
+      <mat-card-header>
+        <div mat-card-avatar class="report-avatar">
+          <mat-icon>{{report.icon}}</mat-icon>
+        </div>
+        <mat-card-title class="card-title">{{report.title}}</mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <p>{{report.description}}</p>
+      </mat-card-content>
+      
+      <mat-card-actions align="end">
+
+        <button mat-stroked-button color="primary" (click)="verReporte(report.route)">
+          VER GRÁFICO
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+  </div>
+</div>

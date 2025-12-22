@@ -1,0 +1,106 @@
+
+.main-container {
+    padding: 40px 20px;
+    background-color: #f5f7fa;
+    min-height: calc(100vh - 64px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.header-actions {
+    width: 100%;
+    max-width: 950px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+
+button[mat-stroked-button] {
+    border: 1.5px solid rgb(44, 14, 216) !important;
+    color: rgb(44, 14, 216) !important;
+    background-color: white !important;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+button[mat-stroked-button]:hover {
+    background-color: rgba(44, 14, 216, 0.05) !important;
+    transform: translateX(-5px);
+}
+
+
+.chart-card {
+    width: 100%;
+    max-width: 950px;
+    border-radius: 16px;
+    background: white;
+   
+    box-shadow: 0 10px 40px rgba(44, 14, 216, 0.08); 
+    overflow: hidden;
+    padding: 0;
+    border: none;
+}
+
+
+.card-header {
+    background: linear-gradient(135deg, rgb(44, 14, 216) 0%, rgb(80, 50, 240) 100%);
+    padding: 30px 40px;
+    color: white;
+}
+
+.card-header mat-card-title {
+    color: white !important;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.card-header mat-card-subtitle {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+
+.chart-content {
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px;
+    background-color: white;
+}
+
+
+.no-data-msg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #90a4ae;
+    text-align: center;
+    padding: 40px;
+    border: 2px dashed #eceff1;
+    border-radius: 12px;
+    width: 100%;
+}
+
+.no-data-msg mat-icon {
+    font-size: 80px;
+    height: 80px;
+    width: 80px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+    color: rgb(44, 14, 216);
+}
+
+.no-data-msg p {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0;
+}
