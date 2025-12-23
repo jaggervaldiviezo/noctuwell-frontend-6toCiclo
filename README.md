@@ -123,7 +123,7 @@ Recopilación de datos sobre impacto de horarios nocturnos en salud física y me
 ### Instalar Dependencias
 ```bash
 # Instalar dependencias del proyecto
-npm install
+npm install --force
 
 # Instalar bibliotecas adicionales
 npm install @swimlane/ngx-charts --save --legacy-peer-deps
